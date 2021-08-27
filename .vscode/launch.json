@@ -9,7 +9,7 @@
             "type": "cppvsdbg",
             "request": "launch",
             "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
-            "args": ["Hello World", "abc xyz"],
+            "args": ["-s", "3", "-r", "testing Scytale"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
