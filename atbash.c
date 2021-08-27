@@ -1,32 +1,50 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
-#include <stdbool.h>
 #include <ctype.h>
+#include <string.h>
+#include <io.h>
 
-#define alphabet "abcdefghijklmnopqrstuvwxyz"
-#define tebahpla "zyxwvutsrqponmlkjihgfedcba"
+void usage(void);
+void atbash(char *);
+
 int main(int argc, char **argv)
 {
     if (argc > 1)
     {
         for (int args = 1; args < argc; args++)
         {
-            char *argPtr = argv[args];
-            for (int i = 0; i < strlen(argPtr); i++)
-            {
-                if (argPtr[i] >= 0x41 && argPtr[i] <= 0x122)
-                {
-                    argPtr[i] = 122 - tolower(argPtr[i]) + 97;
-                }
-            }
-            printf("%s\n", argPtr);
+            atbash(argv[args]);
         }
         return EXIT_SUCCESS;
     }
+    else if (!_isatty(_fileno(stdin)))
+    {
+        char *flag;
+        while (scanf("%s", flag) == 1)
+        {
+            atbash(flag);
+        }
+    }
     else
     {
-        printf("Usage: atbash.exe [Phrase1] [Phrase2]...\n");
-        return EXIT_FAILURE;
+        usage();
     }
+}
+
+void atbash(char *text)
+{
+    for (int i = 0; i < strlen(text); i++)
+    {
+        if (text[i] >= 0x41 && text[i] <= 0x122)
+        {
+            text[i] = 122 - tolower(text[i]) + 97;
+        }
+    }
+    fprintf(stdout, "%s\n", text);
+}
+
+void usage()
+{
+    fprintf(stdout, "Usage: atbash.exe [Phrase1] [Phrase2]...\n");
+    exit(EXIT_FAILURE);
 }
