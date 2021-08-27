@@ -8,21 +8,25 @@
 #define tebahpla "zyxwvutsrqponmlkjihgfedcba"
 int main(int argc, char **argv)
 {
-    if(argc == 2)
+    if(argc > 1)
     {
-        for (int i = 0; i < strlen(argv[1]); i++)
+        for (int args = 1; args < argc; args++)
         {
-            if(argv[1][i] >= 0x41 && argv[1][i] <= 0x122)
+            char *argPtr = argv[args];
+            for (int i = 0; i < strlen(argPtr); i++)
             {
-                argv[1][i] = 122 - tolower(argv[1][i]) + 97;
-            }
+                if(argPtr[i] >= 0x41 && argPtr[i] <= 0x122)
+                {
+                    argPtr[i] = 122 - tolower(argPtr[i]) + 97;
+                }
         }
-        printf("%s\n", argv[1]);
+        printf("%s\n", argPtr);
+        }
         return EXIT_SUCCESS;
     }
     else
     {
-        printf("Usage: atbash.exe <Phrase>\n");
+        printf("Usage: atbash.exe [Phrase1] [Phrase2]...\n");
         return EXIT_FAILURE;
     }
 }

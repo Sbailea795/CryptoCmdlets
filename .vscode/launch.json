@@ -9,7 +9,7 @@
             "type": "cppvsdbg",
             "request": "launch",
             "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
-            "args": ["azHello World"],
+            "args": ["Hello World", "abc xyz"],
             "stopAtEntry": false,
             "cwd": "${fileDirname}",
             "environment": [],
