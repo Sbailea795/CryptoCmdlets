@@ -26,14 +26,12 @@ def main(argv):
     alphabet = getattr(args, "alphabet")
     shift = getattr(args, "shift")
     iterations = getattr(args, "range")
-
+    sentenceCount = 0
     for i in range(iterations):
-        if getattr(args, "verbose"):
-            print('Iteration:', i ,' ')
         for sentence in getattr(args,"texts"):
-            #print(sentence)
+            sentenceCount +=1
             if getattr(args, "verbose"):
-                print('Shift by:', shift ,'',end='')
+                print('text', sentenceCount, 'Shift by:', shift ,'',end='')
             for c in sentence:
                 #find index of letter in alphabet, increment, and mod by length. Add 97 and Upper() to offest to 'a'
                 #print( alphabet.index(c.lower()) )
