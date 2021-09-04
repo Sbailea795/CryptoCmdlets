@@ -6,48 +6,36 @@
 #include <math.h>
 #include <io.h>
 
-#define GET(N) { if(fscanf(f##N,"%d",&b##N ) != 1) f##N = NULL; }
-#define PUT(N) { printf("%d\n", b##N); GET(N) }
-
 void usage(void);
 void scytale(bool, int, char*);
-void merge(FILE*, FILE*);
-void merge(FILE* Appended, FILE*Appendee)
-{
-    while (fscanf(Appendee, Appended) != 1) fputc(getc(Appended), Appendee);
-}
+
 int main(int argc, char **argv)
 {
-    FILE *fp1 = malloc(sizeof(char) * 1024 * 10);
-    FILE *fp2;
-    if (argc > 1){
-        fp2 = argv[1];
-        for (int i = 1; i < argc; i++)
-        {
-            merge(fp1, fopen(argv[1],"r"));
-        } 
+    if (strcmp(argv[1], "-s") != 0) usage();
+    int polygonalSize; char *charPtr; bool decrypt = false;
+    polygonalSize = strtol(argv[2], &charPtr, 10);
+    if (*charPtr != 0 || polygonalSize < 1) usage();
+    if (argc >= 4 && strcmp(argv[3], "-r") == 0 ) decrypt = true;
+    for (int i = (decrypt ? 4 : 3); i < argc; i++)
+    {
+        scytale(decrypt, polygonalSize, argv[i]);
     }
-    fp2 = stdin;
-    merge(fp1, fp2);
-    bool decrypt = true;
-    char *charPtr;
-    int polygonalSize;
-        char *flag;
-        if( !(fscanf(fp1,"%s", &flag) == 1 && strcmp(flag, "-s")) ) usage();
-        if( !(fscanf(fp1,"%s", flag) == 1) ) usage();
-        polygonalSize = strtol(flag, &charPtr, 10);
-        if (*charPtr != 0) usage();
-        if( !(fscanf(fp1, "%s", flag) == 1) ) usage();
-        if ( strcmp(flag, "-r") ){
-            decrypt = true;
-            if ( !(fscanf(fp1, "%s", flag) == 1) ) usage();
-        }
-        do
-        {
-            scytale(decrypt, polygonalSize, flag);
-        }
-        while (fscanf(fp1, "%s", flag) == 1);
+    /*
+    printf("testing loop");
+    char flag[1024];
+    FILE *test = fopen(stdin, "a");
+    fputs( (int*) EOF, test);
+    close(test);
+    printf("testing loop");
+    while (fgetc(stdin))
+    {
+        fgets(flag, sizeof(flag), stdin);
+        printf("flag:%s", flag);
+        scytale(decrypt, polygonalSize, flag);
 
+    }
+    /**/
+    fprintf(stdout, "%S" ,EOF);
     return EXIT_SUCCESS;
 }
 

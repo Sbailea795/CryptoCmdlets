@@ -12,7 +12,7 @@
 void usage(void);
 void scytale(bool, int, char*);
 void merge(FILE*, FILE*);
-void merge(FILE* Appended, FILE*Appendee)
+void merge(FILE *Appended, FILE *Appendee)
 {
     while (fscanf(Appendee, Appended) != 1) fputc(getc(Appended), Appendee);
 }
@@ -21,10 +21,10 @@ int main(int argc, char **argv)
     FILE *fp1 = malloc(sizeof(char) * 1024 * 10);
     FILE *fp2;
     if (argc > 1){
-        fp2 = argv[1];
+        fp2 = fopen(argv[1],"r");
         for (int i = 1; i < argc; i++)
         {
-            merge(fp1, fopen(argv[1],"r"));
+            merge(fp1, fopen(argv[i],"r"));
         } 
     }
     fp2 = stdin;

@@ -5,16 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "cl.exe - Build and debug active file",
-            "type": "cppvsdbg",
+            "name": "Python: Current File",
+            "type": "python",
             "request": "launch",
-            "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
-            "args": ["-s", "3", "-r", "testing Scytale"],
-            "stopAtEntry": false,
-            "cwd": "${fileDirname}",
-            "environment": [],
-            "console": "externalTerminal",
-            "preLaunchTask": "C/C++: gcc.exe build active file"
+            "program": "${file}",
+            "console": "integratedTerminal",
+            "args": ["Test"]
         }
     ]
 }
