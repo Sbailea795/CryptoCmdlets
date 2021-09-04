@@ -17,6 +17,8 @@ def main(argv):
     parser.add_argument('-r', '--range', default=1, type=int, choices=range(1, 100),
                         help='modifies shift to iterate over incrementing shifts r - 1 times.', metavar='Range')
     parser.add_argument('-v', '--verbose', action='store_true', default=False, help='Adds supplemental details. WARNING Will not pipe properly.')
+    
+    #Error try-catch
     try:               
         args = parser.parse_args()
     except argparse.ArgumentError:
@@ -27,7 +29,6 @@ def main(argv):
     shift = getattr(args, "shift")
     iterations = getattr(args, "range")
 
-    #print(iterations)
 
     for i in range(iterations):
         if getattr(args, "verbose"):
