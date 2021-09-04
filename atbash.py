@@ -10,22 +10,38 @@ def main(argv):
     parser = argparse.ArgumentParser(description='Performs a letter shift on text.')
     parser.add_argument('texts', nargs='+', type=str,
                         help='text strings to be shifted', metavar='Text')
+    parser.add_argument('-a', '--alphabet', default='abcdefghijklmnopqrstuvwxyz',
+                        nargs=1, help='provide an alphabet to shift over.', metavar='Alphabet')
+    parser.add_argument('-s', '--shift', default=3, type=int,
+                        help='shifts text by specified amount.', metavar='Shift')
+    parser.add_argument('-r', '--range', default=1, type=int, choices=range(1, 100),
+                        help='modifies shift to iterate over incrementing shifts r - 1 times.', metavar='Range')
+    parser.add_argument('-v', '--verbose', action='store_true', default=False, help='Adds supplemental details. WARNING Will not pipe properly.')
     try:               
         args = parser.parse_args()
     except argparse.ArgumentError:
         sys.exit('Error Parsing Args')
 
-    for sentence in getattr(args,"texts"):
-        sentence = sentence.lower()
-        #print(sentence)
-        for c in sentence:
-            #find index of letter in alphabet, increment, and mod by length. Add 97 and Upper() to offest to 'a'
-            #print( alphabet.index(c.lower()) )
-            if  97 <= ord(c) <= 122:
-                print( chr((122 - ord(c.lower())) % 26 + 97).upper(), end='')
-            else:
-                print(c, end='')
-        print('')
+    #assign args attributes to variables
+    alphabet = getattr(args, "alphabet")
+    shift = getattr(args, "shift")
+    iterations = getattr(args, "range")
+
+    #print(iterations)
+
+    for i in range(iterations):
+        if getattr(args, "verbose"):
+            print('Iteration:', i ,' ')
+        for sentence in getattr(args,"texts"):
+            #print(sentence)
+            if getattr(args, "verbose"):
+                print('Shift by:', shift ,'',end='')
+            for c in sentence:
+                #find index of letter in alphabet, increment, and mod by length. Add 97 and Upper() to offest to 'a'
+                #print( alphabet.index(c.lower()) )
+                print( chr((alphabet.index(c.lower()) + shift) % len(alphabet) + 97).upper(), end='' )
+            print('')
+        shift += 1
 
 if __name__ == "__main__":
    main(sys.argv[1:])
