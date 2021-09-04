@@ -27,8 +27,6 @@ def main(argv):
     shift = getattr(args, "shift")
     iterations = getattr(args, "range")
 
-    #print(iterations)
-
     for i in range(iterations):
         if getattr(args, "verbose"):
             print('Iteration:', i ,' ')
