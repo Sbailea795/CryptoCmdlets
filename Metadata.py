@@ -5,30 +5,30 @@ import Entropy
 
 class Metadata():
 
-    def __init__(self, text, alphabet: str):
+    def __init__(self, text: str, alphabet: str):
         keyFreqPair = []
         AlphaLength = 0
         for c in alphabet:
             keyFreqPair.append((c, 0))
         Frequency = dict(keyFreqPair)
         for c in text:
-            if (c in alphabet):
+            if alphabet.__contains__(c):
                 Frequency[c] += 1
                 AlphaLength += 1
         self.string = text
         self.metadata = dict()
         self.metadata["alphabet"] = alphabet
-        self.metadata["alphabetLength"] = len(alphabet)
+        self.metadata["alphabetLength"] = len(self.metadata['alphabet'])
         self.metadata["average"] = mean(Frequency.values())
         self.metadata["length"] = sum(Frequency.values())
-        self.metadata["entropy"] = Entropy.entropy(text)
+        self.metadata["entropy"] = Entropy.entropy(self.string)
         self.metadata['frequencies'] = list(Frequency.items())
         self.metadata["maximum"] = max(Frequency.values())
         self.metadata["medianVal"] = median(Frequency.values())
         self.metadata["minimum"] = min(Frequency.values())
         self.metadata["totalLength"] = len(text)
-        self.metadata['stdDeviation'] = (stdev(Frequency.values()) / self.metadata['maximum'])
-        self.metadata['relConcavity'] = (self.metadata['medianVal'] - ((self.metadata['maximum'] - self.metadata['minimum']) / 2)) / (self.metadata['maximum'] - self.metadata['minimum'])
+        self.metadata['stdDeviation'] = (stdev(Frequency.values()) / max(self.metadata['maximum'], 1) )
+        self.metadata['relConcavity'] = (self.metadata['medianVal'] - ((self.metadata['maximum'] - self.metadata['minimum']) / 2)) / max(self.metadata['maximum'] - self.metadata['minimum'], 1)
     
     def statisticsToString(self):
         return "Concavity: {0:-5.5f} | ".format(self.metadata['relConcavity']) + \

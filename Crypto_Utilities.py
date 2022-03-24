@@ -1,12 +1,10 @@
 #!/usr/bin/env python
-
-import argparse
 import sys
 from tokenize import Whitespace
 import numpy
-import itertools
 import math
 #import XOR
+from Language import Alphabet
 from dataclasses import dataclass, field
 
 Scrawl = numpy.asarray(
@@ -23,10 +21,10 @@ def main(argv):
     print("This script current has no main; as it stands, this is meant to serve as a collection of common fuctions and utilties for crypto")
 
 def sanitizeText(text):
-    for char in text:
-        if (not char.isalpha()) or (not char.isspace()):
+    for char in text.lower():
+        if (char not in Alphabet) or (not char.isspace()):
             text = text.replace(char, '')
-    return text
+    return text.lower()
 
 def lettersOnly(text):
     for char in text:
