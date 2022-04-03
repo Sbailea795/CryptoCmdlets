@@ -20,11 +20,12 @@ def main(argv):
     entropy("eeee")
     print("This script current has no main; as it stands, this is meant to serve as a collection of common fuctions and utilties for crypto")
 
-def sanitizeText(text):
-    for char in text.lower():
-        if (char not in Alphabet) or (not char.isspace()):
+def sanitizeText(text: str, alphabet: str):
+    text = text.lower()
+    for char in text:
+        if (char not in alphabet):
             text = text.replace(char, '')
-    return text.lower()
+    return text
 
 def lettersOnly(text):
     for char in text:

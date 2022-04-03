@@ -1,16 +1,13 @@
-import math
-import sys
-from Crypto_Utilities import lettersOnly
+import math, sys
 from Language import Alphabet, LanguageScrawl
 
 def main(argv):
     print(entropy[argv])
 
 def entropy(text: str):
-    text = lettersOnly(text)
     sum = 0
-    for char in text.lower():
-        sum += LanguageScrawl[char] * math.log2(LanguageScrawl[char])
+    for char in text:   
+        sum += LanguageScrawl.get(char) * math.log2(LanguageScrawl.get(char))
     sum /= len(text)
     return -sum
 

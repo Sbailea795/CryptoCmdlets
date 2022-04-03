@@ -23,7 +23,7 @@ def main(argv):
     parser.add_argument('-n', '--noGraphs', action='store_true', help='will skip displaying of graphs.')
     parser.add_argument('-c', '--columns', default='1', type=int, choices=[1,2,3,4],
                         help='How many columns to display the data.mdata in', metavar='Columns')
-    parser.add_argument('-a', '--alphabet', nargs='*', default=[Alphabet], type=str, help='Alphabet(s) used to analyze the text.', metavar='Alphabet')
+    parser.add_argument('-a', '--alphabet', default=Alphabet, type=str, help='Alphabet used to analyze the text.', metavar='Alphabet')
     group.add_argument('-l', '--lowerOnly', action='store_true', help='Cast text to lowercase and analyze only the lowercase letters.')
     group.add_argument('-u', '--upperOnly', action='store_true', help='Cast text to uppercase and analyze only the uppercase letters.')
     parser.add_argument('-s', '--signatures', action='store_true', default=False, help='Generates a signature pairing of the scrawl(s).')
@@ -31,7 +31,7 @@ def main(argv):
     #Error try-catch
     try:               
         args = parser.parse_args()
-        args.text[:] = [sanitizeText(text) for text in args.text]
+        #args.text[:] = [sanitizeText(text, args.alphabet) for text in args.text]
         # -lu arg formatting
         if (args.lowerOnly is True):
             args.text[:] = [a.lower() for a in args.text]
@@ -52,8 +52,8 @@ def main(argv):
     formatted = []
     #takes text, cast to a Metadata
     for text in args.text:
-        for alphabet in args.alphabet:
-            combinations.append(Metadata(text, alphabet))
+        #for alphabet in args.alphabet:
+            combinations.append(Metadata(text, args.alphabet, text))
     
     #queues what is to be printed
     for combo in combinations:
