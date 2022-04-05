@@ -26,7 +26,7 @@ def main(argv):
     group.add_argument('-d', '--decrypt', action='store_true', help='decrypt with affine')
 
     #Error try-catch
-    try:               
+    try:  git             
         args = parser.parse_args()
         if not(args.brute or args.encrypt or args.decrypt):
             sys.exit('Error: ArgumentParser failed to parse the arguments')

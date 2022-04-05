@@ -107,7 +107,7 @@ def FormatGraph(data: Metadata, label: str, signature: bool):
     sys.stdout = new_stdout
     #prints the top axis of the graph
     print(label.center(leftBorder , '_'), end='')
-    for char in sorted(data.metadata['frequencies'], key=lambda x: x[sortKey]):
+    for char in sorted(data.metadata['frequencies'], key=lambda x: x[sortKey], reverse=True):
         print(char[0].center(width, '_'), end='')
     print()
 
@@ -116,7 +116,7 @@ def FormatGraph(data: Metadata, label: str, signature: bool):
         line = '|'  
         background = ' ' 
         print("{0} : {1:04}, {2:06.3f}% ".format( data.metadata['frequencies'][i][0], data.metadata['frequencies'][i][1], 100*data.metadata['frequencies'][i][1]/data.metadata['length'] ), end='')
-        for char in sorted(data.metadata['frequencies'], key=lambda x: x[sortKey]):
+        for char in sorted(data.metadata['frequencies'], key=lambda x: x[sortKey], reverse=True):
             
             if i * resolution <= 100*data.metadata['medianVal']/data.metadata['length'] < (i + 1) * resolution:
                 background = '='
@@ -149,7 +149,7 @@ def FormatToString(data: Metadata, label: str, signature: bool, noGraphs: bool):
     #print((textwrap.wrap(data.string, leftBorder + width * data.metadata['alphabetLength'], max_lines=5)).ljust(leftBorder + width * data.metadata['alphabetLength']))
     print()
     if noGraphs is False:
-        FormatGraph(data, label, signature)
+        print(FormatGraph(data, label, signature))
 
     #statistics on the graph
     if (leftBorder + width * data.metadata['alphabetLength'] > 2 * leftBorder):
